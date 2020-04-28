@@ -1,3 +1,5 @@
+# delete this file, it's for the former gitlab site
+
 testpages:
   image: python:3.6
   tags:

@@ -1,0 +1,36 @@
+# Based on
+# https://github.com/SNL-WaterPower/WecOptTool/blob/master/.travis.yml
+# https://github.com/MHKiT-Software/MHKiT-Python/blob/master/.travis.yml
+# https://github.com/MHKiT-Software/MHKiT/blob/master/.gitlab-ci.yml
+# https://docs.travis-ci.com/user/deployment/pages/
+
+language: python
+python:
+    - "3.6"  
+  sudo: false # if false, use TravisCI's container based build
+
+        
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  on:
+    branch: master        
+    
+
+jobs:
+  include:
+    - stage: pages
+      install:
+        - pip install mhkit
+        - pip install sphinx
+        - pip install sphinx_rtd_theme
+        - pip install nbsphinx
+        - pip install nbsphinx_link
+        - pip install sphinxcontrib-bibtex
+        - pip install sphinxcontrib-matlabdomain
+      script:
+        - cd docs
+        - make html
+            
